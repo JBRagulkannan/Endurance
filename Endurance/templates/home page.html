@@ -1,0 +1,114 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Endurance</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Endurance</h1>-->
+<!--<br>-->
+<!--<form action="/data" method="post">-->
+<!--    <label>Initial value</label>-->
+<!--    <input type="text" name="Initialvalue">-->
+<!--    <input type="submit" value="InitialValue">-->
+<!--    <br>-->
+<!--    <br>-->
+<!--    <label>Final value</label>-->
+<!--    <input type="text" name="Finalvalue">-->
+<!--    <input type="submit" value="FinalValue">-->
+<!--</form>-->
+
+<!--<form>-->
+<!--    <h1>Enduance data</h1>-->
+<!--    <table>-->
+<!--        <tr>-->
+<!--            <td>Inital value</td>-->
+<!--            <td>{{Initialvalue}}</td>-->
+<!--        </tr>-->
+<!--         <tr>-->
+<!--            <td>Final value</td>-->
+<!--            <td>{{Finalvalue}}</td>-->
+<!--        </tr>-->
+<!--    </table>-->
+
+
+<!--</form>-->
+<!--</body>-->
+<!--<script>-->
+
+<!--</script>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Endurance</title>
+</head>
+<style>
+    .heading{
+text-align: center;
+    }
+</style>
+<body>
+<h1 class="heading">Endurance</h1>
+<h3>Com port</h3>
+
+<!--<p>Current Date and Time: {{ current_datetime }}</p>-->
+<h2>
+    <p>Date and Time:&nbsp{{ current_datetime }} &nbsp <span id="clock"></span></p>
+<!--    <div id="clock"></div>-->
+</h2>
+<script>
+    function updateClock() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      const timeString = `${hours}:${minutes}:${seconds}`;
+      document.getElementById('clock').textContent = timeString;
+    }
+    // Update the clock every second
+    setInterval(updateClock, 1000);
+    // Initial call to display the clock immediately
+    updateClock();
+  </script>
+<br>
+<form action="/data" method="post">
+
+    <select id="cop" name="comport">
+        <option selected>Select the COM_PORT</option>
+    {%for comport in com_port %}
+    <option value="{{ comport }}" {%if last_selected_value != comport %}comport{%endif%}>{{comport}}</option>
+    {%endfor%}
+  </select>
+            <p>{{last_selected_value}}</p>
+
+    <br>
+    <br>
+    <label>Initial value</label>
+    <input type="text" name="Initialvalue">
+    <input type="submit" name="initialSubmit" value="Store Initial">
+    <br>
+    <br>
+    <label>Final value</label>
+    <input type="text" name="Finalvalue">
+    <input type="submit" name="finalSubmit" value="Store Final">
+</form>
+
+<div>
+    <h1>Endurance data</h1>
+    <table>
+        <tr>
+            <td>Initial value</td>
+            <td>{{Initialvalue}}</td>
+        </tr>
+        <tr>
+            <td>Final value</td>
+            <td>{{Finalvalue}}</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
+
